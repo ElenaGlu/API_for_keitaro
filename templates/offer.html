@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+   </head>
+   <body>
+      <h3>Создание Оффера</h3>
+      <form method="post" action="/offer">
+         <p>Название: <input type = "text" name = "name" /></p>
+         <p>ID Партнерской сети: {{ network_id }}</p>
+         <p>ID Партнерской сети:  <input type = "text" name = "affiliate_network_id" /></p>
+         <p>Тип оффера: Локальный </p>
+         <p>URL: <input type = "text" name = "action_payload" /></p>
+         <p><input type = "submit" value = "Создать оффер" /></p>
+      </form>
+   </body>
+</html>

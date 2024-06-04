@@ -6,7 +6,6 @@ class AffiliateNetwork(Model):
     name = fields.CharField(max_length=256)
     postback_url = fields.CharField(max_length=256)
     offer_param = fields.CharField(max_length=256)
-    notes = fields.CharField(max_length=256)
     keitaro_id = fields.IntField(null=True)
 
 
