@@ -36,7 +36,7 @@ def test_get_aff_network():
 def test_get_offer_keitaro():
     with TestClient(app) as client:
         offer_data = {
-            "id": 42
+            "id": 19
         }
         response = client.post("/get_offer_keitaro", json=offer_data)
         assert response.status_code == 200
