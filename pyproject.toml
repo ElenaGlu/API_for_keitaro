@@ -13,6 +13,9 @@ jinja2 = "^3.1.4"
 python-dotenv = "^1.0.1"
 uvicorn = "^0.30.1"
 asyncpg = "^0.29.0"
+tortoise-orm = "^0.21.3"
+psycopg2-binary = "^2.9.9"
+requests = "^2.32.3"
 
 
 [build-system]
