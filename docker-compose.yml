@@ -5,12 +5,12 @@ services:
     build: .
     volumes:
       - .:/code
-    command: sh -c "cd app && uvicorn main:app --host 0.0.0.0"
+    command: sh -c "cd app && uvicorn views:app --host 0.0.0.0"
     ports:
       - "8080:8000"
     restart: always
     env_file:
-      - .env
+      - app/.env
     depends_on:
       db:
         condition: service_completed_successfully
