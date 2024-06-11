@@ -1,6 +1,6 @@
-from typing import Dict, Type
-
 from fastapi import FastAPI, Request, Form
+
+from database import init_db
 
 import requests
 from starlette import status
@@ -9,8 +9,8 @@ from starlette.templating import Jinja2Templates
 from tortoise.exceptions import IntegrityError
 
 from config import URL_AFF_NETWORK, URL_OFFER, KEY_K
-from database import init_db
 from models import AffiliateNetwork, Offer
+from services import add_keitaro_id, create_aff_network_keitaro, create_offer_keitaro
 
 app = FastAPI()
 init_db(app)
@@ -60,30 +60,6 @@ async def create_aff_network(
         return HTMLResponse('Пользовательская сеть с таким именем уже существует')
 
 
-@app.get("/aff_network_keitaro", status_code=status.HTTP_201_CREATED)
-def create_aff_network_keitaro(data: Dict[str, str]) -> int:
-    """
-    Create an affiliate network in the keitaro
-    :param data: dict containing keys: name, postback_url, offer_param
-    :return: id object's in the keitaro
-    """
-    return (requests.post(
-        URL_AFF_NETWORK,
-        headers={'Api-Key': KEY_K},
-        data=data
-    )).json()['id']
-
-
-async def add_keitaro_id(model: Type, current_id: int, keitaro_id: int) -> None:
-    """
-    Add the value - keitaro id to the database
-    :param model: obj AffiliateNetwork or Offer
-    :param current_id: id in database
-    :param keitaro_id: id in keitaro
-    """
-    await model.filter(id=current_id).update(keitaro_id=keitaro_id)
-
-
 @app.post("/offer", status_code=status.HTTP_201_CREATED)
 async def create_offer(
         request: Request,
@@ -111,22 +87,8 @@ async def create_offer(
         return HTMLResponse('Оффер с таким именем уже существует')
 
 
-def create_offer_keitaro(data: Dict[str, int]) -> int:
-    """
-    Create an offer in the keitaro
-    :param data: dict containing keys: name, action_payload, affiliate_network_id
-    :return: id object's in the keitaro
-    """
-
-    return (requests.post(
-        URL_OFFER,
-        headers={'Api-Key': KEY_K},
-        data=data
-    )).json()['id']
-
-
-@app.post("/get_aff_network_keitaro", status_code=status.HTTP_200_OK)
-async def get_aff_network_keitaro(network_id: int = Form()) -> JSONResponse:
+@app.post("/get_aff_network", status_code=status.HTTP_200_OK)
+async def get_aff_network(network_id: int = Form()) -> JSONResponse:
     """
     Get detailed information about affiliate network from keitaro
     """
@@ -138,8 +100,8 @@ async def get_aff_network_keitaro(network_id: int = Form()) -> JSONResponse:
     return response.json()
 
 
-@app.post("/get_offer_keitaro", status_code=status.HTTP_200_OK)
-async def get_offer_keitaro(offer_id: int = Form()) -> JSONResponse:
+@app.post("/get_offer", status_code=status.HTTP_200_OK)
+async def get_offer(offer_id: int = Form()) -> JSONResponse:
     """
     Get detailed information about offer from keitaro
     """

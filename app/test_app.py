@@ -29,7 +29,7 @@ def test_get_aff_network():
         aff_data = {
             "id": 42
         }
-        response = client.post("/get_aff_network_keitaro", json=aff_data)
+        response = client.post("/get_aff_network", json=aff_data)
         assert response.status_code == 200
 
 
@@ -38,5 +38,5 @@ def test_get_offer_keitaro():
         offer_data = {
             "id": 19
         }
-        response = client.post("/get_offer_keitaro", json=offer_data)
+        response = client.post("/get_offer", json=offer_data)
         assert response.status_code == 200
