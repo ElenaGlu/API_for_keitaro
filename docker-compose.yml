@@ -8,10 +8,14 @@ services:
     command: sh -c "cd app && uvicorn main:app --host 0.0.0.0"
     ports:
       - "8080:8000"
+    restart: always
     env_file:
       - .env
     depends_on:
-      - db
+      db:
+        condition: service_completed_successfully
+    secrets:
+      - db-password
 
   db:
     image: 'postgres:16-alpine'
@@ -19,9 +23,20 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     ports:
       - "5434:5432"
+    restart: always
+    secrets:
+      - db-password
     environment:
       - POSTGRES_DB=tracker
-      - POSTGRES_PASSWORD=masterkey
+      - POSTGRES_PASSWORD=/run/secrets/db-password
       - POSTGRES_USER=admin
+    healthcheck:
+      test: [ "CMD",  "pg_isready -d tracker -U admin" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 volumes:
-    postgres_data:
+  postgres_data:
+secrets:
+  db-password:
+    file: app/db/password.txt
