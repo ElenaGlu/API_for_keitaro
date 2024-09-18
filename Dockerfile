@@ -1,24 +1,16 @@
-FROM python:3.10 as requirements-stage
+FROM python:3.12
 
-WORKDIR /tmp
-
-RUN pip install poetry
-
-COPY pyproject.toml ./poetry.lock* /tmp/
-
-RUN poetry export -f requirements.txt --output requirements.txt --without-hashes
-
-FROM python:3.10
-
-WORKDIR /code
-
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-
-COPY --from=requirements-stage /tmp/requirements.txt /code/requirements.txt
-
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+ENV POETRY_VIRTUALENVS_CREATE=false
+ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE 1
 
 COPY . /code
-WORKDIR /code/app
-CMD ["uvicorn", "views:app", "--host", "0.0.0.0", "--port", "80"]
+WORKDIR code/
+
+RUN python -m pip install --upgrade pip
+RUN pip install --upgrade poetry && poetry --version
+RUN poetry install
+
+WORKDIR app/
+
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
