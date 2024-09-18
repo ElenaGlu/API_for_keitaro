@@ -1,4 +1,4 @@
-app/.env
 .idea/
 **/__pycache__/
 /app/db/
+/.env
