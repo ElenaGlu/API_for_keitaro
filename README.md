@@ -9,7 +9,7 @@
 
 ### Технологии:
 
-Python3, FastAPI, PostgreSQL, Tortoise ORM, Aerich, Poetry, Docker Compose, Jinja2
+Python3, FastAPI, PostgreSQL, Tortoise ORM, Aerich, Poetry, Docker Compose, Jinja2, Pytest
 
 ### Тестирование:
 
