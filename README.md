@@ -26,5 +26,4 @@ Python3, FastAPI, PostgreSQL, Tortoise ORM, Aerich, Poetry, Docker Compose, Jinj
 /app                        
     test_app.py
 ```
-
-![MyCollages (1)](https://github.com/user-attachments/assets/3e5735fc-8ccd-4980-8079-3606348ff8c4)
+![MyCollages (2)](https://github.com/user-attachments/assets/61199dfa-7ce5-40e8-9ba8-7109fac93da0)
