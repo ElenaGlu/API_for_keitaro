@@ -27,3 +27,9 @@ Python3, FastAPI, PostgreSQL, Tortoise ORM, Aerich, Poetry, Docker Compose, Jinj
     test_app.py
 ```
 ![MyCollages (2)](https://github.com/user-attachments/assets/61199dfa-7ce5-40e8-9ba8-7109fac93da0)
+
+В рамках проекта было проведено тестирование, включающее следующие виды:
+* [x] Функциональное
+* [x] Интеграционное
+* [x] Автоматизированное
+* [x] Тестирование по документации
